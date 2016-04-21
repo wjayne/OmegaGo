@@ -1,8 +1,10 @@
 """Cloud Foundry test"""
-from flask import Flask
-import os
+"""
+TODO: CHANGE THIS FILE SO IT RUNS BY IMPORTING THE APP OBJECT FORM THE MODULE
+"""
 
-app = Flask(__name__)
+from app import app
+import os
 
 # On Bluemix, get the port number from the environment variable VCAP_APP_PORT
 # When running this app on the local machine, default the port to 8080
