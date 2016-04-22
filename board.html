@@ -78,6 +78,12 @@
           //alert("bottom "+checkLiberties(x,y+1));
           floodfill(x,y+1);
         }
+        turn+=1;
+        if(!checkLiberties(x,y)){
+          floodfill(x,y);
+        }
+        else
+          turn-=1;
 
         draw_board(c, boardArray, true);
   		}, false);
