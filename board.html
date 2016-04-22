@@ -40,15 +40,15 @@
 
         if(boardArray[x][y] == 0)
         {
-            if(turn == 1)
+            if(turn%2==1)
             {
                 boardArray[x][y] = turn;
-                turn = 2;
+                turn ++;
             }
-            else if(turn == 2)
+            else if(turn%2==0)
             {
               boardArray[x][y] = turn;
-              turn = 1;
+              turn ++ ;
             }
         }
         else
@@ -135,7 +135,7 @@
               {
                   for (j = 0 ; j<19 ; j++)
                   {
-                      if (placed[i][j] == 1)
+                      if (placed[i][j]%2==1)
                       {
                           /*Place Black Stones*/
                           xx = 30+24.44*i;
@@ -145,7 +145,7 @@
                           ctx.arc(xx,yy,10,0,2*Math.PI);
                           ctx.fill();
                       }
-                      else if(placed[i][j] == 2){
+                      else if(placed[i][j]%2==0 && placed[i][j] != 0){
                         /*plave white stones*/
                           xx = 30+24.44*i;
                           yy = 30+24.44*j;
