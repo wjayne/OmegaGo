@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Omega Go</title>
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  </head>
+  <body>
+  	<!--<div id="board">
+  		<table>
+	  		<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  		</table>
+  	</div>-->
+  	<canvas id="board" width="500" height="500" style="border:1px solid #000000;">
+  	</canvas>
+  	<script type="text/javascript">
+  		var c = document.getElementById("board");
+  		c.addEventListener('click', function(evt){
+  			var e = evt.target;
+		    var dim = e.getBoundingClientRect();
+		    var x = evt.clientX - dim.left;
+		    var y = evt.clientY - dim.top;
+		    alert("x:"+x+" y:"+y);
+  		}, false);
+  		var ctx = c.getContext("2d");
+  		ctx.strokeStyle = "#000000";
+  		ctx.lineWidth = 2;
+  		ctx.moveTo(30,30);
+		ctx.lineTo(30,470);
+		ctx.lineTo(470,470);
+		ctx.lineTo(470,30);
+		ctx.lineTo(29,30);
+		ctx.stroke();
+		var delta = 24.44;
+		ctx.lineWidth = 1;
+		var x = 30;
+		var y = 30;
+		for (i = 0 ; i <= 17 ; i++)
+		{
+			x+= delta;
+			ctx.moveTo(x,y);
+			ctx.lineTo(x, 470);
+			ctx.stroke();
+		}
+		x = 30;
+		for (i = 0 ; i <= 17; i++)
+		{
+			y+= delta;
+			ctx.moveTo(x,y);
+			ctx.lineTo(470, y);
+			ctx.stroke();
+		}
+		x = 30 + 3*delta;
+		y = x;
+		a = y;
+		ctx.beginPath();
+		ctx.arc(x,y,4,0,2*Math.PI);
+		ctx.fill();
+		for (i = 0 ; i< 3 ; i++)
+		{
+			for (j = 0; j <  3 ; j++)
+			{
+				ctx.beginPath();
+				ctx.arc(x,y,4,0,2*Math.PI);
+				ctx.fill();
+				y += 6*delta;
+			}
+			y = a;
+			x += 6*delta;
+		}
+  	</script>
+  </body>
+</html>
