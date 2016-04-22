@@ -38,15 +38,23 @@
         xx = 30+24.44*x;
         yy = 30+24.44*y;
 
-        if(turn == 1)
+        if(boardArray[x][y] == 0)
         {
-            boardArray[x][y] = turn;
-            turn = 2;
+            if(turn == 1)
+            {
+                boardArray[x][y] = turn;
+                turn = 2;
+            }
+            else if(turn == 2)
+            {
+              boardArray[x][y] = turn;
+              turn = 1;
+            }
         }
-        else if(turn == 2)
+        else
         {
-          boardArray[x][y] = turn;
-          turn = 1;
+            alert("erase");
+            boardArray[x][y] = 0;
         }
 
         draw_board(c, boardArray, true);
@@ -57,6 +65,13 @@
       {
           /*Make empty board*/
           var ctx = c.getContext("2d");
+          /*clear board*/
+          ctx.beginPath();
+          ctx.rect(30,30,440,440);
+          ctx.fillStyle = "#F5F5AB";
+          ctx.fill();
+
+
           ctx.strokeStyle = "#000000";
           ctx.lineWidth = 2;
           ctx.beginPath();
@@ -103,12 +118,14 @@
             for (j = 0; j <  3 ; j++)
             {
               ctx.beginPath();
+              ctx.fillStyle = "#000000";
               ctx.arc(x,y,4,0,2*Math.PI);
               ctx.fill();
               y += 6*delta;
             }
             y = a;
             x += 6*delta;
+          }
             /*End empty board construction*/
 
             /*populate board based on 2darray*/
@@ -129,6 +146,7 @@
                           ctx.fill();
                       }
                       else if(placed[i][j] == 2){
+                        /*plave white stones*/
                           xx = 30+24.44*i;
                           yy = 30+24.44*j;
                           ctx.beginPath();
@@ -140,7 +158,6 @@
               }
             }
 
-      }
       }
   	</script>
   </body>
