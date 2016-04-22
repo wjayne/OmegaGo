@@ -8,9 +8,26 @@
   <body>
   	<canvas id="board" width="500" height="500" style="border:1px solid #000000;">
   	</canvas>
+
+
   	<script type="text/javascript">
   		var c = document.getElementById("board");
-  		c.addEventListener('click', function(evt){
+
+      var turn = 1;
+      var boardArray = new Array(19);
+      for(i = 0 ; i < 19 ; i++)
+      {
+          boardArray[i] = new Array(19);
+          for (j = 0 ; j<19; j++)
+          {
+              boardArray[i][j] = 0;
+          }
+      }
+      draw_board(c, boardArray, false);
+
+      c.addEventListener('click', function(evt){
+        //GAMEPLAY
+        //alert("Cicked");
   			var e = evt.target;
 		    var dim = e.getBoundingClientRect();
 		    var x = evt.clientX - dim.left;
@@ -20,58 +37,111 @@
         var context = c.getContext("2d");
         xx = 30+24.44*x;
         yy = 30+24.44*y;
-        context.fillStyle = "#F0FFFF";
-        context.beginPath();
-        context.arc(xx,yy,10,0,2*Math.PI);
-        context.fill();
-        //alert("x:"+x+" y:"+y)
+
+        if(turn == 1)
+        {
+            boardArray[x][y] = turn;
+            turn = 2;
+        }
+        else if(turn == 2)
+        {
+          boardArray[x][y] = turn;
+          turn = 1;
+        }
+
+        draw_board(c, boardArray, true);
   		}, false);
-  		var ctx = c.getContext("2d");
-  		ctx.strokeStyle = "#000000";
-  		ctx.lineWidth = 2;
-  		ctx.moveTo(30,30);
-		ctx.lineTo(30,470);
-		ctx.lineTo(470,470);
-		ctx.lineTo(470,30);
-		ctx.lineTo(29,30);
-		ctx.stroke();
-		var delta = 24.44;
-		ctx.lineWidth = 1;
-		var x = 30;
-		var y = 30;
-		for (i = 0 ; i <= 17 ; i++)
-		{
-			x+= delta;
-			ctx.moveTo(x,y);
-			ctx.lineTo(x, 470);
-			ctx.stroke();
-		}
-		x = 30;
-		for (i = 0 ; i <= 17; i++)
-		{
-			y+= delta;
-			ctx.moveTo(x,y);
-			ctx.lineTo(470, y);
-			ctx.stroke();
-		}
-		x = 30 + 3*delta;
-		y = x;
-		a = y;
-		ctx.beginPath();
-		ctx.arc(x,y,4,0,2*Math.PI);
-		ctx.fill();
-		for (i = 0 ; i< 3 ; i++)
-		{
-			for (j = 0; j <  3 ; j++)
-			{
-				ctx.beginPath();
-				ctx.arc(x,y,4,0,2*Math.PI);
-				ctx.fill();
-				y += 6*delta;
-			}
-			y = a;
-			x += 6*delta;
-		}
+
+      //DRAW BOARD
+      function draw_board(c, placed, bool)
+      {
+          /*Make empty board*/
+          var ctx = c.getContext("2d");
+          ctx.strokeStyle = "#000000";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(30,30);
+          ctx.lineTo(30,470);
+          ctx.lineTo(470,470);
+          ctx.lineTo(470,30);
+          ctx.lineTo(29,30);
+          ctx.stroke();
+
+          /*draw internal lines of board*/
+          var delta = 24.44;
+          ctx.lineWidth = 1;
+          var x = 30;
+          var y = 30;
+          for (i = 0 ; i <= 17 ; i++)
+          {
+            x+= delta;
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(x, 470);
+            ctx.stroke();
+          }
+          x = 30;
+          for (i = 0 ; i <= 17; i++)
+          {
+            y+= delta;
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(470, y);
+            ctx.stroke();
+          }
+
+          /*Add the star points*/
+          x = 30 + 3*delta;
+          y = x;
+          a = y;
+          ctx.beginPath();
+          ctx.fillStyle = "#000000";
+          ctx.arc(x,y,4,0,2*Math.PI);
+          ctx.fill();
+          for (i = 0 ; i< 3 ; i++)
+          {
+            for (j = 0; j <  3 ; j++)
+            {
+              ctx.beginPath();
+              ctx.arc(x,y,4,0,2*Math.PI);
+              ctx.fill();
+              y += 6*delta;
+            }
+            y = a;
+            x += 6*delta;
+            /*End empty board construction*/
+
+            /*populate board based on 2darray*/
+            if(bool)
+            {
+              for (i = 0 ; i <19 ; i++)
+              {
+                  for (j = 0 ; j<19 ; j++)
+                  {
+                      if (placed[i][j] == 1)
+                      {
+                          /*Place Black Stones*/
+                          xx = 30+24.44*i;
+                          yy = 30+24.44*j;
+                          ctx.beginPath();
+                          ctx.fillStyle = "#000000";
+                          ctx.arc(xx,yy,10,0,2*Math.PI);
+                          ctx.fill();
+                      }
+                      else if(placed[i][j] == 2){
+                          xx = 30+24.44*i;
+                          yy = 30+24.44*j;
+                          ctx.beginPath();
+                          ctx.fillStyle = "#F0FFFF";
+                          ctx.arc(xx,yy,10,0,2*Math.PI);
+                          ctx.fill();
+                      }
+                  }
+              }
+            }
+
+      }
+      }
   	</script>
   </body>
 </html>
