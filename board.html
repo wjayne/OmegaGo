@@ -6,87 +6,209 @@
   <link rel="stylesheet" href="styles.css" type="text/css">
   </head>
   <body>
-  	<!--<div id="board">
-  		<table>
-	  		<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  		</table>
-  	</div>-->
   	<canvas id="board" width="500" height="500" style="border:1px solid #000000;">
   	</canvas>
+
+
   	<script type="text/javascript">
   		var c = document.getElementById("board");
-  		c.addEventListener('click', function(evt){
+
+      var turn = 1;
+      var boardArray = new Array(19);
+      for(i = 0 ; i < 19 ; i++)
+      {
+          boardArray[i] = new Array(19);
+          for (j = 0 ; j<19; j++)
+          {
+              boardArray[i][j] = 0;
+          }
+      }
+      draw_board(c, boardArray, false);
+
+      c.addEventListener('click', function(evt){
+        //GAMEPLAY
+        //alert("Cicked");
   			var e = evt.target;
 		    var dim = e.getBoundingClientRect();
 		    var x = evt.clientX - dim.left;
 		    var y = evt.clientY - dim.top;
-		    alert("x:"+x+" y:"+y);
+		    x = Math.round((x-30)/24.44);
+        y = Math.round((y-30)/24.44);  //THIS X AND Y NEEDS TO BE PASSED INTO GAME
+        var context = c.getContext("2d");
+        xx = 30+24.44*x;
+        yy = 30+24.44*y;
+
+        if(boardArray[x][y] == 0)
+        {
+            if(turn%2==1)
+            {
+                boardArray[x][y] = turn;
+                turn ++;
+            }
+            else if(turn%2==0)
+            {
+              boardArray[x][y] = turn;
+              turn ++ ;
+            }
+        }
+        else
+        {
+            alert("erase");
+            boardArray[x][y] = 0;
+        }
+
+        // alert("turn"+turn);
+        // alert("left");
+        if(boardArray[x-1][y]!=turn&&(!checkLiberties(x-1,y))){
+          //alert("left "+checkLiberties(x-1,y));
+          floodfill(x-1,y);
+        }
+        //alert("top");
+        if(boardArray[x][y-1]!=turn&&(!checkLiberties(x,y-1))){
+          //alert("top "+checkLiberties(x,y-1));
+          floodfill(x,y-1);
+        }
+        //alert("right");
+        if(boardArray[x+1][y]!=turn&&(!checkLiberties(x+1,y))){
+          //alert("right "+checkLiberties(x+1,y));
+          floodfill(x+1,y);
+        }
+        //alert("bottom");
+        if(boardArray[x][y+1]!=turn&&(!checkLiberties(x,y+1))){
+          //alert("bottom "+checkLiberties(x,y+1));
+          floodfill(x,y+1);
+        }
+
+        draw_board(c, boardArray, true);
   		}, false);
-  		var ctx = c.getContext("2d");
-  		ctx.strokeStyle = "#000000";
-  		ctx.lineWidth = 2;
-  		ctx.moveTo(30,30);
-		ctx.lineTo(30,470);
-		ctx.lineTo(470,470);
-		ctx.lineTo(470,30);
-		ctx.lineTo(29,30);
-		ctx.stroke();
-		var delta = 24.44;
-		ctx.lineWidth = 1;
-		var x = 30;
-		var y = 30;
-		for (i = 0 ; i <= 17 ; i++)
-		{
-			x+= delta;
-			ctx.moveTo(x,y);
-			ctx.lineTo(x, 470);
-			ctx.stroke();
-		}
-		x = 30;
-		for (i = 0 ; i <= 17; i++)
-		{
-			y+= delta;
-			ctx.moveTo(x,y);
-			ctx.lineTo(470, y);
-			ctx.stroke();
-		}
-		x = 30 + 3*delta;
-		y = x;
-		a = y;
-		ctx.beginPath();
-		ctx.arc(x,y,4,0,2*Math.PI);
-		ctx.fill();
-		for (i = 0 ; i< 3 ; i++)
-		{
-			for (j = 0; j <  3 ; j++)
-			{
-				ctx.beginPath();
-				ctx.arc(x,y,4,0,2*Math.PI);
-				ctx.fill();
-				y += 6*delta;
-			}
-			y = a;
-			x += 6*delta;
-		}
+
+      function checkLiberties(x,y){
+        if(boardArray[x][y]==0){
+          return 1;
+        } 
+        if(boardArray[x][y]==turn || boardArray[x][y]%2==(turn+1)%2){
+          //alert("rip");
+          return 0;
+        }
+        else{
+          //alert("good");
+          boardArray[x][y]=turn;
+          return (checkLiberties(x-1,y)+checkLiberties(x,y-1)+checkLiberties(x+1,y)+checkLiberties(x,y+1));
+        }
+      }
+
+      function floodfill(x,y){
+        if(boardArray[x][y]==0){
+          return;
+        }
+        if(boardArray[x][y]%2==turn%2){
+          boardArray[x][y]=0;
+          floodfill(x+1,y);
+          floodfill(x,y+1);
+          floodfill(x-1,y);
+          floodfill(x,y-1);
+        }
+      }
+
+      //DRAW BOARD
+      function draw_board(c, placed, bool)
+      {
+          /*Make empty board*/
+          var ctx = c.getContext("2d");
+          /*clear board*/
+          ctx.beginPath();
+          ctx.rect(30,30,440,440);
+          ctx.fillStyle = "#F5F5AB";
+          ctx.fill();
+
+
+          ctx.strokeStyle = "#000000";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(30,30);
+          ctx.lineTo(30,470);
+          ctx.lineTo(470,470);
+          ctx.lineTo(470,30);
+          ctx.lineTo(29,30);
+          ctx.stroke();
+
+          /*draw internal lines of board*/
+          var delta = 24.44;
+          ctx.lineWidth = 1;
+          var x = 30;
+          var y = 30;
+          for (i = 0 ; i <= 17 ; i++)
+          {
+            x+= delta;
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(x, 470);
+            ctx.stroke();
+          }
+          x = 30;
+          for (i = 0 ; i <= 17; i++)
+          {
+            y+= delta;
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(470, y);
+            ctx.stroke();
+          }
+
+          /*Add the star points*/
+          x = 30 + 3*delta;
+          y = x;
+          a = y;
+          ctx.beginPath();
+          ctx.fillStyle = "#000000";
+          ctx.arc(x,y,4,0,2*Math.PI);
+          ctx.fill();
+          for (i = 0 ; i< 3 ; i++)
+          {
+            for (j = 0; j <  3 ; j++)
+            {
+              ctx.beginPath();
+              ctx.fillStyle = "#000000";
+              ctx.arc(x,y,4,0,2*Math.PI);
+              ctx.fill();
+              y += 6*delta;
+            }
+            y = a;
+            x += 6*delta;
+          }
+            /*End empty board construction*/
+
+            /*populate board based on 2darray*/
+            if(bool)
+            {
+              for (i = 0 ; i <19 ; i++)
+              {
+                  for (j = 0 ; j<19 ; j++)
+                  {
+                      if (placed[i][j]%2==1)
+                      {
+                          /*Place Black Stones*/
+                          xx = 30+24.44*i;
+                          yy = 30+24.44*j;
+                          ctx.beginPath();
+                          ctx.fillStyle = "#000000";
+                          ctx.arc(xx,yy,10,0,2*Math.PI);
+                          ctx.fill();
+                      }
+                      else if(placed[i][j]%2==0 && placed[i][j] != 0){
+                        /*plave white stones*/
+                          xx = 30+24.44*i;
+                          yy = 30+24.44*j;
+                          ctx.beginPath();
+                          ctx.fillStyle = "#F0FFFF";
+                          ctx.arc(xx,yy,10,0,2*Math.PI);
+                          ctx.fill();
+                      }
+                  }
+              }
+            }
+
+      }
   	</script>
   </body>
 </html>
