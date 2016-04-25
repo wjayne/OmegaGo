@@ -16,12 +16,30 @@
       </ul>
       <br>
       <button id="save">Save</button>
+      <button id="reset">Reset</button>
     </div>
     <br>
   	<script type="text/javascript">
       var nblack = 0;
       var nwhite = 0;
   		var c = document.getElementById("board");
+
+      // TODO: TODOTODO
+      var reset = document.getElementById("reset");
+      reset.addEventListener('click', function() {
+        for(i = 0 ; i < 19 ; i++)
+        {
+            boardArray[i] = new Array(19);
+            for (j = 0 ; j<19; j++)
+            {
+                boardArray[i][j] = 0;
+            }
+        }
+        nwhite = 0;
+        nblack = 0;
+        draw_board(c, boardArray, false);
+      }, false);
+
       var turn = 1;
       var boardArray = new Array(19);
       var savedBoards = [];
