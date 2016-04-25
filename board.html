@@ -89,6 +89,9 @@
   		}, false);
 
       function checkLiberties(x,y){
+        if(x<0 || y<0 || x>18 || y>18){
+          return 0;
+        }
         if(boardArray[x][y]==0){
           return 1;
         } 
