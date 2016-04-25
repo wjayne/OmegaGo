@@ -3,13 +3,29 @@
   <head>
     <meta charset="UTF-8">
     <title>Omega Go</title>
-  <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   </head>
   <body>
+    <!--<h1>Omega Go</h1>-->
   	<canvas id="board" width="500" height="500" style="border:1px solid #000000;">
   	</canvas>
-
-
+    <br>
+    <script type=text/javascript>
+      $(function() {
+        $().bind('click', function() {
+          $.getJSON($SCRIPT_ROOT + '/save', {
+            
+          })
+        })
+      });
+    </script>
+    <form class="save-load">
+      <input type="submit" name="submit" value="save">    
+      <input type="submit" name="submit" value="load">
+    </form>
+    
   	<script type="text/javascript">
   		var c = document.getElementById("board");
 
@@ -59,22 +75,23 @@
 
         // alert("turn"+turn);
         // alert("left");
-        if(boardArray[x-1][y]!=turn&&(!checkLiberties(x-1,y))){
+        //TODO: TODOTODOTODOTODO
+        if((x < 0 || y < 0) && (x > 18 || y > 18) && boardArray[x-1][y]!=turn&&(!checkLiberties(x-1,y))){
           //alert("left "+checkLiberties(x-1,y));
           floodfill(x-1,y);
         }
         //alert("top");
-        if(boardArray[x][y-1]!=turn&&(!checkLiberties(x,y-1))){
+        if((x < 0 || y < 0) && (x > 18 || y > 18) &&boardArray[x][y-1]!=turn&&(!checkLiberties(x,y-1))){
           //alert("top "+checkLiberties(x,y-1));
           floodfill(x,y-1);
         }
         //alert("right");
-        if(boardArray[x+1][y]!=turn&&(!checkLiberties(x+1,y))){
+        if((x < 0 || y < 0) && (x > 18 || y > 18) &&boardArray[x+1][y]!=turn&&(!checkLiberties(x+1,y))){
           //alert("right "+checkLiberties(x+1,y));
           floodfill(x+1,y);
         }
         //alert("bottom");
-        if(boardArray[x][y+1]!=turn&&(!checkLiberties(x,y+1))){
+        if((x < 0 || y < 0) && (x > 18 || y > 18) &&boardArray[x][y+1]!=turn&&(!checkLiberties(x,y+1))){
           //alert("bottom "+checkLiberties(x,y+1));
           floodfill(x,y+1);
         }
@@ -89,6 +106,9 @@
   		}, false);
 
       function checkLiberties(x,y){
+        if (x < 0 || y < 0 || x > 18 || y > 18) {
+          return 0;
+        }
         if(boardArray[x][y]==0){
           return 1;
         } 
@@ -104,7 +124,7 @@
       }
 
       function floodfill(x,y){
-        if(boardArray[x][y]==0){
+        if(boardArray[x][y]==0 || x < 0 || y < 0 || x > 18 || y > 18){
           return;
         }
         if(boardArray[x][y]%2==turn%2){
