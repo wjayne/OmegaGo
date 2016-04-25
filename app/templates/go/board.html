@@ -8,28 +8,32 @@
   </head>
   <body>
     <!--<h1>Omega Go</h1>-->
-  	<canvas id="board" width="500" height="500" style="border:1px solid #000000;">
-  	</canvas>
+    <div style="text-align: center;">
+    	<canvas id="board" width="500" height="500" style="border:1px solid #000000; display:inline-block;">
+    	</canvas>
+      <ol id="savedStates" style="height: 500px; width:150px; border: 1px solid black; display:inline-block; margin-left:30px; position:absolute; margin-top:0px;">
+        <li syle="display:inline-block; ">Test</li>
+      </ol>
+      <br>
+      <button id="save">Save</button>
+    </div>
     <br>
-    <script type=text/javascript>
-      $(function() {
-        $().bind('click', function() {
-          $.getJSON($SCRIPT_ROOT + '/save', {
-            
-          })
-        })
-      });
-    </script>
-    <form class="save-load">
-      <input type="submit" name="submit" value="save">    
-      <input type="submit" name="submit" value="load">
-    </form>
-    
   	<script type="text/javascript">
   		var c = document.getElementById("board");
-
       var turn = 1;
       var boardArray = new Array(19);
+      var savedBoards = [];
+      var saveButton = document.getElementById("save")
+      save.addEventListener('click', function(){
+          savedBoards.push(boardArray);
+          $('#savedStates').append('<li><button id=\'temp\'>Board '+savedBoards.length+'</button></li>');
+          var li = document.getElementById("temp");
+          li.setAttribute('id', savedBoards.length);
+          li.addEventListener('click', function(){
+            boardArray = savedBoards[li.id-1];
+            draw_board(c, savedBoards[li.id-1], true);
+          }, false);
+      }, false);
       for(i = 0 ; i < 19 ; i++)
       {
           boardArray[i] = new Array(19);
@@ -68,8 +72,8 @@
         }
         else
         {
-            alert("erase");
-            boardArray[x][y] = 0;
+            alert("Invalid: Space already Occupied");
+            //boardArray[x][y] = 0;
         }
 
         // alert("turn"+turn);
@@ -111,7 +115,7 @@
         }
         if(boardArray[x][y]==0){
           return 1;
-        } 
+        }
         if(boardArray[x][y]==turn || boardArray[x][y]%2==(turn+1)%2){
           //alert("rip");
           return 0;
