@@ -96,10 +96,11 @@
         }
         turn+=1;
         if(!checkLiberties(x,y)){
-          boardArray[x][y]=0;
+           boardArray[x][y]=0;
         }
-        else
-          turn-=1;
+        else{
+          turn+=1;
+        }
 
         draw_board(c, boardArray, true);
   		}, false);
