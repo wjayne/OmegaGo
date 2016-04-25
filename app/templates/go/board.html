@@ -155,6 +155,10 @@
           return;
         }
         if(boardArray[x][y]%2==turn%2){
+          if(boardArray[x][y]%2)
+            nblack-=1;
+          else
+            nwhite-=1;
           boardArray[x][y]=0;
           floodfill(x+1,y);
           floodfill(x,y+1);
