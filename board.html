@@ -53,8 +53,8 @@
         }
         else
         {
-            alert("erase");
-            boardArray[x][y] = 0;
+            alert("Invalid move, space occupied");
+            //boardArray[x][y] = 0;
         }
 
         // alert("turn"+turn);
@@ -94,7 +94,7 @@
         }
         if(boardArray[x][y]==0){
           return 1;
-        } 
+        }
         if(boardArray[x][y]==turn || boardArray[x][y]%2==(turn+1)%2){
           //alert("rip");
           return 0;
