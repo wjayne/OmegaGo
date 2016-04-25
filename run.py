@@ -11,10 +11,10 @@ import os
 # When running this app on the local machine, default the port to 8080
 port = int(os.getenv('VCAP_APP_PORT', 8080))
 
-@app.route('/')
-def hello():
-    return "index"
-    #return 'Hello World! I am running on port ' + str(port)
+# @app.route('/')
+# def hello():
+#     return "index"
+#     #return 'Hello World! I am running on port ' + str(port)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port)
