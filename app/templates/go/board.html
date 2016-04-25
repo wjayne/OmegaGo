@@ -46,6 +46,7 @@
       var saveButton = document.getElementById("save")
       save.addEventListener('click', function(){
           var copied = JSON.stringify(boardArray);
+          var counts = [nwhite, nblack];
           savedBoards.push(copied);
           $('#savedStates').append('<li><button id=\'temp\'>Board '+savedBoards.length+'<br>black: '+nblack+'<br>white: '+nwhite+'</button></li>');
           var li = document.getElementById("temp");
@@ -53,6 +54,8 @@
           li.addEventListener('click', function(){
             boardArray = JSON.parse(copied);
             draw_board(c, JSON.parse(savedBoards[li.id-1]), true);
+            nwhite = counts[0];
+            nblack = counts[1];
           }, false);
       }, false);
       for(i = 0 ; i < 19 ; i++)
