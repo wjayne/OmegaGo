@@ -16,10 +16,22 @@
       </ol>
       <br>
       <button id="save">Save</button>
+      <button id="reset">Reset</button>
     </div>
     <br>
   	<script type="text/javascript">
+
+      
   		var c = document.getElementById("board");
+      
+      // TODO: TODOTODO
+      var reset = document.getElementById("reset");
+      reset.addEventListener('click', function() {
+        var newBoard = new Array(19);
+        boardArray = newBoard;
+        draw_board(c, boardArray, true);
+      }, false);
+      
       var turn = 1;
       var boardArray = new Array(19);
       var savedBoards = [];
