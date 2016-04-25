@@ -1,0 +1,32 @@
+body{
+  background: green;
+  text-align: center;
+}
+
+#container{
+  margin-top: 10%;
+}
+
+canvas{
+  border:1px solid #000000;
+  display:inline-block;
+  background:#F5F5AB;
+}
+
+ul{
+  height: 500px;
+  width:150px;
+  border: 1px solid black;
+  display:inline-block;
+  margin-left:30px;
+  position:absolute;
+  margin-top:0px;
+  list-style-type:none;
+  background: white;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+li{
+  margin-top: 10px;
+}

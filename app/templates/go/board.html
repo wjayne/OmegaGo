@@ -3,22 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <title>Omega Go</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   </head>
   <body>
-    <!--<h1>Omega Go</h1>-->
-    <div style="text-align: center;">
-    	<canvas id="board" width="500" height="500" style="border:1px solid #000000; display:inline-block; background:#F5F5AB; ">
+    <h1>Omega Go</h1>
+    <div id="container" style="text-align: center;">
+    	<canvas id="board" width="500" height="500">
     	</canvas>
-      <ol id="savedStates" style="height: 500px; width:150px; border: 1px solid black; display:inline-block; margin-left:30px; position:absolute; margin-top:0px;">
-        <li syle="display:inline-block; ">Test</li>
-      </ol>
+      <ul id="savedStates">
+      </ul>
       <br>
       <button id="save">Save</button>
     </div>
     <br>
   	<script type="text/javascript">
+      var nblack = 0;
+      var nwhite = 0;
   		var c = document.getElementById("board");
       var turn = 1;
       var boardArray = new Array(19);
@@ -27,7 +29,7 @@
       save.addEventListener('click', function(){
           var copied = JSON.stringify(boardArray);
           savedBoards.push(copied);
-          $('#savedStates').append('<li><button id=\'temp\'>Board '+savedBoards.length+'</button></li>');
+          $('#savedStates').append('<li><button id=\'temp\'>Board '+savedBoards.length+'<br>black: '+nblack+'<br>white: '+nwhite+'</button></li>');
           var li = document.getElementById("temp");
           li.setAttribute('id', savedBoards.length);
           li.addEventListener('click', function(){
@@ -62,11 +64,13 @@
         {
             if(turn%2==1)
             {
+                nblack++;
                 boardArray[x][y] = turn;
                 turn ++;
             }
             else if(turn%2==0)
             {
+              nwhite++;
               boardArray[x][y] = turn;
               turn ++ ;
             }
