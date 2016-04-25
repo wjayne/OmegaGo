@@ -9,7 +9,7 @@
   <body>
     <!--<h1>Omega Go</h1>-->
     <div style="text-align: center;">
-    	<canvas id="board" width="500" height="500" style="border:1px solid #000000; display:inline-block;">
+    	<canvas id="board" width="500" height="500" style="border:1px solid #000000; display:inline-block; background:#F5F5AB; ">
     	</canvas>
       <ol id="savedStates" style="height: 500px; width:150px; border: 1px solid black; display:inline-block; margin-left:30px; position:absolute; margin-top:0px;">
         <li syle="display:inline-block; ">Test</li>
@@ -148,7 +148,7 @@
           var ctx = c.getContext("2d");
           /*clear board*/
           ctx.beginPath();
-          ctx.rect(30,30,440,440);
+          ctx.rect(0,0,500,500);
           ctx.fillStyle = "#F5F5AB";
           ctx.fill();
 
