@@ -25,13 +25,14 @@
       var savedBoards = [];
       var saveButton = document.getElementById("save")
       save.addEventListener('click', function(){
-          savedBoards.push(boardArray);
+          var copied = JSON.stringify(boardArray);
+          savedBoards.push(copied);
           $('#savedStates').append('<li><button id=\'temp\'>Board '+savedBoards.length+'</button></li>');
           var li = document.getElementById("temp");
           li.setAttribute('id', savedBoards.length);
           li.addEventListener('click', function(){
-            boardArray = savedBoards[li.id-1];
-            draw_board(c, savedBoards[li.id-1], true);
+            boardArray = JSON.parse(copied);
+            draw_board(c, JSON.parse(savedBoards[li.id-1]), true);
           }, false);
       }, false);
       for(i = 0 ; i < 19 ; i++)
